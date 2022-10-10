@@ -17,7 +17,10 @@
 
 import sys
 import warnings
+import os
 from os.path import abspath, dirname, join
+
+import pytest
 
 
 # allow having multiple repository checkouts and not needing to remember to rerun
@@ -42,3 +45,13 @@ def pytest_terminal_summary(terminalreporter):
     make_reports = terminalreporter.config.getoption("--make-reports")
     if make_reports:
         pytest_terminal_summary_main(terminalreporter, id=make_reports)
+
+def pytest_collection_modifyitems(session, config, items):
+    if os != "nt":
+        return
+    
+    skip_windows = pytest.mark.skip(reason="jax not supported on windows")
+    
+    for item in items:
+        if item.path.name.endswith("_flax.py"):
+            item.add_marker(skip_windows)

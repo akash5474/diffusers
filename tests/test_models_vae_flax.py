@@ -1,4 +1,3 @@
-import os
 import unittest
 
 import jax
@@ -6,7 +5,6 @@ from diffusers import FlaxAutoencoderKL
 
 from .test_modeling_common_flax import FlaxModelTesterMixin
 
-@unittest.skipIf(os.name != "nt", "jax not supported on windows")
 class FlaxAutoencoderKLTests(FlaxModelTesterMixin, unittest.TestCase):
     model_class = FlaxAutoencoderKL
 
