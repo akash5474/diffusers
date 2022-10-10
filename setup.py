@@ -194,6 +194,7 @@ if os.name == "nt":  # windows
     extras["flax"] = []  # jax is not supported on windows
 else:
     extras["flax"] = deps_list("jax", "jaxlib", "flax")
+    extras["test"] += extras["flax"]
 
 extras["dev"] = (
     extras["quality"] + extras["test"] + extras["training"] + extras["docs"] + extras["torch"] + extras["flax"]
