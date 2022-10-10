@@ -19,7 +19,10 @@ jobs:
   run_tests_cpu:
     name: Diffusers tests
 #     runs-on: [ self-hosted, docker-gpu ]
-    runs-on: [ ubuntu-latest ]
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, windows-latest ]
     container:
       image: python:3.7
       options: --shm-size "16gb" --ipc host -v /mnt/hf_cache:/mnt/cache/
